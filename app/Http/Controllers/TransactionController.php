@@ -20,17 +20,17 @@ class TransactionController extends Controller
 
     public function sendMoney(SendTransactionRequest $request)
     {
-//        try {
+        try {
             $transaction = $this->transaction->create($request->all());
             $this->account->updateByNumber(Arr::get($request, 'sender_account_number'), [
                 'frozen_amount' => Arr::get($request, 'amount')
             ]);
             ProcessTransactionJob::dispatch($transaction->id);
             return response()->json(['success' => 'Transaction in progress'])->setStatusCode(Response::HTTP_CREATED);
-//        } catch (\Throwable $th) {
-//            return response()
-//                ->json(['message' => $th->getMessage()])
-//                ->setStatusCode(Response::HTTP_BAD_REQUEST);
-//        }
+        } catch (\Throwable $th) {
+            return response()
+                ->json(['message' => $th->getMessage()])
+                ->setStatusCode(Response::HTTP_BAD_REQUEST);
+        }
     }
 }

@@ -12,6 +12,9 @@ class UserRepository implements IUser
 {
     use CrudTrait;
 
+    /**
+     * @return Builder
+     */
     public function getModel(): Builder
     {
         return User::query();
