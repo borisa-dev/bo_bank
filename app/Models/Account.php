@@ -49,25 +49,4 @@ class Account extends Model
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * Define the relationship for transactions where this account is the sender.
-     * Each account can have many transactions where it sends money.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function sentTransactions()
-    {
-        return $this->hasMany(Transaction::class, 'sender_id');
-    }
-
-    /**
-     * Define the relationship for transactions where this account is the receiver.
-     * Each account can have many transactions where it receives money.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function receivedTransactions()
-    {
-        return $this->hasMany(Transaction::class, 'receiver_id');
-    }
 }

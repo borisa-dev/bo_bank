@@ -12,8 +12,8 @@ return new class extends Migration {
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('sender_account_number')->constrained('accounts')->onDelete('cascade');
-            $table->foreignId('receiver_account_number')->constrained('accounts')->onDelete('cascade');
+            $table->string('sender_account_number',32)->index();
+            $table->string('receiver_account_number',32)->index();
             $table->decimal('amount');
             $table->tinyInteger('status')->default(0);
             $table->timestamps();

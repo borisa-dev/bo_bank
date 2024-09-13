@@ -37,26 +37,4 @@ class Transaction extends Model
         'created_at'  => 'datetime',
         'finished_at' => 'datetime',
     ];
-
-    /**
-     * Relationship to the Account model where the transaction is sent from (sender).
-     * Each transaction belongs to one sender account.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function sender()
-    {
-        return $this->belongsTo(Account::class, 'sender_account_number');
-    }
-
-    /**
-     * Relationship to the Account model where the transaction is received (receiver).
-     * Each transaction belongs to one receiver account.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function receiver()
-    {
-        return $this->belongsTo(Account::class, 'receiver_account_number');
-    }
 }
