@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
-            $table->string('account_number', 32)->index();
+            $table->string('account_number', 32)->unique()->index();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->decimal('amount')->unsigned();
             $table->decimal('frozen_amount')->default(0);
