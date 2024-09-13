@@ -39,5 +39,13 @@ class UserAndAccountSeeder extends Seeder
             'user_id'        => $user2->id,
             'amount'         => 1100.33,
         ]);
+
+        User::create([
+            'name'              => 'User 3',
+            'email'             => 'user3@gmail.com',
+            'password'          => '33333333',
+            'date_of_birth'     => Carbon::create(1923, 1, 1),
+            'email_verified_at' => Carbon::now(),
+        ]);
     }
 }
