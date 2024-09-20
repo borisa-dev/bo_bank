@@ -6,7 +6,6 @@ use App\Http\Requests\Transaction\SendTransactionRequest;
 use App\Interfaces\Repositories\IAccount;
 use App\Interfaces\Repositories\ITransaction;
 use App\Jobs\ProcessTransactionJob;
-use Illuminate\Support\Arr;
 use Symfony\Component\HttpFoundation\Response;
 
 class TransactionController extends Controller
@@ -21,9 +20,9 @@ class TransactionController extends Controller
     public function sendMoney(SendTransactionRequest $request)
     {
         try {
-            $transaction = $this->transaction->create($request->all());
-            $this->account->updateByNumber(Arr::get($request, 'sender_account_number'), [
-                'frozen_amount' => Arr::get($request, 'amount')
+            $transaction = $this->transaction->create($request->validated());
+            $this->account->updateByNumber($request->sender_account_number, [
+                'frozen_amount' => $request->amount
             ]);
             ProcessTransactionJob::dispatch($transaction->id);
             return response()->json(['success' => 'Transaction in progress'])->setStatusCode(Response::HTTP_CREATED);

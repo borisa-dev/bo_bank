@@ -28,7 +28,7 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, string $id)
     {
         try {
-            $this->user->update($id, $request->all());
+            $this->user->update($id, $request->validated());
             return response()->json(['success' => 'ok'])->setStatusCode(Response::HTTP_OK);
         } catch (\Throwable $th) {
             return response()

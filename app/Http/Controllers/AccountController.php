@@ -19,7 +19,7 @@ class AccountController extends Controller
     public function upBalance(UpAccountRequest $request, string $accountNumber)
     {
        try {
-            $this->account->updateByNumber($accountNumber, $request->all());
+            $this->account->updateByNumber($accountNumber, $request->validated());
             return response()->json(['success' => 'ok'])->setStatusCode(Response::HTTP_OK);
         } catch (\Throwable $th) {
             return response()
