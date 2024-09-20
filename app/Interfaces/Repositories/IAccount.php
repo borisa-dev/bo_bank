@@ -17,5 +17,6 @@ interface IAccount extends ICrud
      * @param array  $data
      * @return mixed
      */
-    public function updateByNumber(string $accountNumber, array $data);
+    public function updateByNumber(string $accountNumber, array $data): Account;
+
 }

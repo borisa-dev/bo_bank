@@ -12,13 +12,13 @@ class SendTransactionRequest extends FormRequest
 
     public function __construct(
         public IAccount $account,
-        array $query = [],
-        array $request = [],
-        array $attributes = [],
-        array $cookies = [],
-        array $files = [],
-        array $server = [],
-              $content = null
+        array           $query = [],
+        array           $request = [],
+        array           $attributes = [],
+        array           $cookies = [],
+        array           $files = [],
+        array           $server = [],
+                        $content = null
     )
     {
         parent::__construct($query, $request, $attributes, $cookies, $files, $server, $content);
@@ -30,14 +30,6 @@ class SendTransactionRequest extends FormRequest
             'status' => TransactionStatusEnum::PENDING->value,
         ]);
     }
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -67,8 +59,7 @@ class SendTransactionRequest extends FormRequest
             return;
         }
 
-        $availableAmount = $senderAccount->amount - $senderAccount->frozen_amount;
-        if ($value > $availableAmount) {
+        if ($value > $senderAccount->balance) {
             $fail('The transaction amount cannot exceed the available balance.');
         }
     }

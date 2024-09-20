@@ -53,8 +53,4 @@ class User extends Authenticatable
         return $this->hasMany(Account::class, 'user_id');
     }
 
-    public function getBalanceAttribute()
-    {
-        return $this->accounts->sum('amount') - $this->accounts->sum('frozen_amount');
-    }
 }

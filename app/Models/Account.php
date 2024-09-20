@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Account extends Model
 {
@@ -49,4 +48,8 @@ class Account extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function getBalanceAttribute()
+    {
+        return $this->amount - $this->frozen_amount;
+    }
 }

@@ -22,7 +22,7 @@ class UserResource extends JsonResource
             'date_of_birth' => Carbon::create($this->date_of_birth)->toFormattedDateString(),
             'age'           => Carbon::parse($this->date_of_birth)->age,
             'accounts'      => AccountResource::collection($this->whenLoaded('accounts')),
-            'balance'       => $this->balance,
+            'balance'       => $this->accounts->sum('balance'),
         ];
     }
 }
